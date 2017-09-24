@@ -5,7 +5,7 @@
     <creationDate>September 2017</creationDate>
     <authorEmail>christoph.schafflinger@intertops.eu</authorEmail>
     <authorUrl>www.intertops.eu</authorUrl>
-    <version>1.0.1</version>
+    <version>0.0.1</version>
     <description>KRAKEN_DESCRIPTION</description>
     <files>
             <filename plugin="kraken">kraken.php</filename>
@@ -62,6 +62,6 @@
     </config>
     <updateservers>
         <server type="extension" priority="1"
-            name="Kraken Updates"><![CDATA[https://extensions.meinweb.cc/krakenupdates.xml]]></server>
+            name="Kraken Updates"><![CDATA[https://raw.githubusercontent.com/pAnd0rASBG/plg_kraken/master/manifest.xml]]></server>
     </updateservers>
 </extension>
