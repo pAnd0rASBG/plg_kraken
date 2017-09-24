@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<extension group="system" method="upgrade" type="plugin" version="2.5">
+    <name>PLG_SYSTEM_KRAKEN</name>
+    <author>Christoph Schafflinger</author>
+    <creationDate>September 2017</creationDate>
+    <authorEmail>christoph.schafflinger@intertops.eu</authorEmail>
+    <authorUrl>www.intertops.eu</authorUrl>
+    <version>1.0.1</version>
+    <description>KRAKEN_DESCRIPTION</description>
+    <files>
+            <filename plugin="kraken">kraken.php</filename>
+            <folder>lib</folder>
+            <folder>models</folder>
+    </files>
+    <media folder="media" destination="plg_kraken">
+            <folder>css</folder>
+            <folder>js</folder>
+    </media>
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.plg_system_kraken.ini</language>
+    </languages>
+
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field
+                    name="apikey"
+                    type="text"
+                    label="KRAKEN_API_KEY"
+                    description="KRAKEN_API_KEY_DESC"
+                    hint="12345"
+                    required="true"
+                />
+                <field
+                    name="apisecret"
+                    type="text"
+                    label="KRAKEN_API_SECRET_LABEL"
+                    description="KRAKEN_API_SECRET_DESC"
+                    hint="12345"
+                    required="true"
+                />
+            </fieldset>
+            <fieldset name="advanced" addfieldpath="/plugins/system/kraken/models/fields">
+                <field name="krakendefaults" type="radio" default="1" label="Use default Kraken settings" description="Choose wether to use the default optimization settings or define custom ones" class="btn-group btn-group-yesno">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                <field name="optimization" type="radio" default="1" label="Choose Optimization" description="Lossless Optimization usually gives about 15-20% savings and does not affect Quality. Lossy Optimization gives up to 60% savings and tries, not to affect visual quality. Default: Lossy" class="btn-group btn-group-yesno" showon="krakendefaults:0">
+                    <option value="1">Lossy</option>
+                    <option value="0">Lossless</option>
+                </field>
+                <field id="qual" name="qual" type="BSRange" label="Image Quality"
+    				description="Quality Setting for " 
+                    default="70" 
+                    min="1" 
+                    max="100" 
+                    step="1" 
+                    showon="krakendefaults:0[AND]optimization:1"
+                    />
+            </fieldset>
+        </fields>
+    </config>
+    <updateservers>
+        <server type="extension" priority="1"
+            name="Kraken Updates"><![CDATA[https://extensions.meinweb.cc/krakenupdates.xml]]></server>
+    </updateservers>
+</extension>
