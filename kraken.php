@@ -1,7 +1,7 @@
 <?php
 /**
  * @package plg_kraken for Joomla!
- * @version 1.0.0
+ * @version 1.0.3
  * @author Christoph Schafflinger
  * @copyright (C) 2017 Christoph Schafflinger
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -53,11 +53,14 @@ class plgSystemKraken extends JPlugin
 			//Meta Settings
 			if($params->get('metapreserve', 0)){
 				// Preserve some or all Meta Data
-				($params->get('metaprofile', 0) ? $kparams["preserve_meta"][] = "profile");
-				($params->get('metadate', 0) ? $kparams["preserve_meta"][] = "date");
-				($params->get('metacopyright', 0) ? $kparams["preserve_meta"][] = "copyright");
-				($params->get('metageotag', 0) ? $kparams["preserve_meta"][] = "geotag");
-				($params->get('metaorientation', 0) ? $kparams["preserve_meta"][] = "orientation");
+				$meta = array();
+				$meta[] = ($params->get('metaprofile', 0) ? "profile" : "");
+				$meta[] = ($params->get('metadate', 0) ? "date" : "");
+				$meta[] = ($params->get('metacopyright', 0) ? "copyright" : "");
+				$meta[] = ($params->get('metageotag', 0) ? "geotag" : "");
+				$meta[] = ($params->get('metaorientation', 0) ? "orientation" : "");
+				// add cleaned up array
+				$kparams["preserve_meta"] = array_values(array_filter($meta, function($value) { return $value !== ''; }));
 			}
 		}else{
 			$kparams["lossy"] = true;
