@@ -7,7 +7,7 @@
     <authorUrl>www.meinweb.cc</authorUrl>
     <copyright>Copyright (C) 2017 Christoph Schafflinger. All rights reserved.</copyright>
     <license>GNU/GPLv3 http://www.gnu.org/copyleft/gpl.html</license>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <description>KRAKEN_DESCRIPTION</description>
     <files>
             <filename plugin="kraken">kraken.php</filename>
