@@ -5,10 +5,10 @@
 		<description><![CDATA[Kraken Image Optimizer Plugin]]></description>
 		<element>kraken</element>
 		<type>plugin</type>
-		<version>1.0.1</version>
-		<infourl title="Kraken 1.0.1">https://github.com/pAnd0rASBG/plg_kraken/releases</infourl>
+		<version>1.0.2</version>
+		<infourl title="Kraken 1.0.2">https://github.com/pAnd0rASBG/plg_kraken/releases</infourl>
 		<downloads>
-			<downloadurl type="full" format="zip">https://github.com/pAnd0rASBG/plg_kraken/archive/1.0.1.zip</downloadurl>
+			<downloadurl type="update" format="zip">https://github.com/pAnd0rASBG/plg_kraken/archive/1.0.2.zip</downloadurl>
 		</downloads>
 		<tags>
 			<tag>stable</tag>
@@ -16,47 +16,7 @@
 		<maintainer><![CDATA[Christoph Schafflinger]]></maintainer>
 		<maintainerurl>https://www.meinweb.cc/</maintainerurl>
 		<section>Updates</section>
-		<targetplatform name="joomla" version="3.5"/>
-		<client>0</client>
-		<folder>system</folder>
-	</update>
-	<update>
-		<name><![CDATA[Kraken Image Optimizer Plugin]]></name>
-		<description><![CDATA[Kraken Image Optimizer Plugin]]></description>
-		<element>kraken</element>
-		<type>plugin</type>
-		<version>1.0.0</version>
-		<infourl title="Kraken 1.0.0">https://github.com/pAnd0rASBG/plg_kraken/releases</infourl>
-		<downloads>
-			<downloadurl type="full" format="zip">https://github.com/pAnd0rASBG/plg_kraken/archive/1.0.0.zip</downloadurl>
-		</downloads>
-		<tags>
-			<tag>stable</tag>
-		</tags>
-		<maintainer><![CDATA[Christoph Schafflinger]]></maintainer>
-		<maintainerurl>https://www.meinweb.cc/</maintainerurl>
-		<section>Updates</section>
-		<targetplatform name="joomla" version="3.5"/>
-		<client>0</client>
-		<folder>system</folder>
-	</update>
-	<update>
-		<name><![CDATA[Kraken Image Optimizer Plugin]]></name>
-		<description><![CDATA[Kraken Image Optimizer Plugin]]></description>
-		<element>kraken</element>
-		<type>plugin</type>
-		<version>0.0.2</version>
-		<infourl title="Kraken 0.0.2">https://github.com/pAnd0rASBG/plg_kraken/releases</infourl>
-		<downloads>
-			<downloadurl type="full" format="zip">https://github.com/pAnd0rASBG/plg_kraken/archive/0.0.2-beta.zip</downloadurl>
-		</downloads>
-		<tags>
-			<tag>stable</tag>
-		</tags>
-		<maintainer><![CDATA[Christoph Schafflinger]]></maintainer>
-		<maintainerurl>https://www.meinweb.cc/</maintainerurl>
-		<section>Updates</section>
-		<targetplatform name="joomla" version="3.5"/>
+		<targetplatform name="joomla" version="3.[0123456789]"/>
 		<client>0</client>
 		<folder>system</folder>
 	</update>
