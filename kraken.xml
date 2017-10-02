@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<extension group="system" method="upgrade" type="plugin" version="2.5">
+<extension group="system" method="upgrade" type="plugin" version="3.0">
     <name>PLG_SYSTEM_KRAKEN</name>
     <author>Christoph Schafflinger</author>
     <creationDate>September 2017</creationDate>
-    <authorEmail>christoph.schafflinger@intertops.eu</authorEmail>
-    <authorUrl>www.intertops.eu</authorUrl>
-    <version>0.0.2</version>
+    <authorEmail>cs@ffmz.at</authorEmail>
+    <authorUrl>www.meinweb.cc</authorUrl>
+    <copyright>Copyright (C) 2017 Christoph Schafflinger. All rights reserved.</copyright>
+    <license>GNU/GPLv3 http://www.gnu.org/copyleft/gpl.html</license>
+    <version>1.0.0</version>
     <description>KRAKEN_DESCRIPTION</description>
     <files>
             <filename plugin="kraken">kraken.php</filename>
+            <filename>LICENSE</filename>
+            <filename>README.md</filename>
             <folder>lib</folder>
             <folder>models</folder>
     </files>
@@ -18,6 +22,7 @@
     </media>
     <languages folder="language">
         <language tag="en-GB">en-GB/en-GB.plg_system_kraken.ini</language>
+        <language tag="en-GB">en-GB/en-GB.plg_system_kraken.sys.ini</language>
     </languages>
 
     <config>
@@ -26,9 +31,9 @@
                 <field
                     name="apikey"
                     type="text"
-                    label="KRAKEN_API_KEY"
+                    label="KRAKEN_API_KEY_LABEL"
                     description="KRAKEN_API_KEY_DESC"
-                    hint="12345"
+                    hint="KRAKEN_API_KEY_HINT"
                     required="true"
                 />
                 <field
@@ -36,27 +41,63 @@
                     type="text"
                     label="KRAKEN_API_SECRET_LABEL"
                     description="KRAKEN_API_SECRET_DESC"
-                    hint="12345"
+                    hint="KRAKEN_API_SECRET_HINT"
                     required="true"
                 />
             </fieldset>
             <fieldset name="advanced" addfieldpath="/plugins/system/kraken/models/fields">
-                <field name="krakendefaults" type="radio" default="1" label="Use default Kraken settings" description="Choose wether to use the default optimization settings or define custom ones" class="btn-group btn-group-yesno">
+                <field type="spacer" name="myspacer" label="KRAKEN_QUALITY_SETTINGS" />
+                <field name="krakendefaults" type="radio" default="1" label="KRAKEN_DEFAULT_SETTINGS_LABEL" description="KRAKEN_DEFAULT_SETTINGS_DESC" class="btn-group btn-group-yesno">
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
                 </field>
-                <field name="optimization" type="radio" default="1" label="Choose Optimization" description="Lossless Optimization usually gives about 15-20% savings and does not affect Quality. Lossy Optimization gives up to 60% savings and tries, not to affect visual quality. Default: Lossy" class="btn-group btn-group-yesno" showon="krakendefaults:0">
-                    <option value="1">Lossy</option>
-                    <option value="0">Lossless</option>
+                <field name="optimization" type="radio" default="1" label="KRAKEN_OPTIMIZATION_LABEL" description="KRAKEN_OPTIMIZATION_DESC" class="btn-group btn-group-yesno" showon="krakendefaults:0">
+                    <option value="1">LOSSY</option>
+                    <option value="0">LOSSLESS</option>
                 </field>
-                <field id="qual" name="qual" type="BSRange" label="Image Quality"
-    				description="Quality Setting for " 
+                <field id="qual" name="qual" type="BSRange" label="KRAKEN_QUALITY_LABEL"
+    				description="KRAKEN_QUALITY_DESC" 
                     default="70" 
                     min="1" 
                     max="100" 
                     step="1" 
                     showon="krakendefaults:0[AND]optimization:1"
                     />
+                <field name="chroma" type="list" default="4:2:0" label="KRAKEN_CHROMA_LABEL" description="KRAKEN_CHROMA_DESC" showon="krakendefaults:0[AND]optimization:1">
+                    <option value="4:2:0">4:2:0</option>
+                    <option value="4:2:2">4:2:2</option>
+                    <option value="4:4:4">4:4:4</option>
+                </field>
+                <field type="spacer" name="myspacer" label="KRAKEN_META_SETTINGS" />
+                <field name="metapreserve" type="radio" default="1" label="KRAKEN_META_PRESERVE_LABEL" description="KRAKEN_META_PRESERVE_DESC" class="btn-group btn-group-yesno">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                <field name="metaprofile" type="radio" default="0" label="KRAKEN_META_PROFILE_LABEL" description="KRAKEN_META_PROFILE_DESC" class="btn-group btn-group-yesno">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                <field name="metadate" type="radio" default="0" label="KRAKEN_META_DATE_LABEL" description="KRAKEN_META_DATE_DESC" class="btn-group btn-group-yesno">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                <field name="metacopyright" type="radio" default="0" label="KRAKEN_META_COPYRIGHT_LABEL" description="KRAKEN_META_COPYRIGHT_DESC" class="btn-group btn-group-yesno">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                <field name="metageotag" type="radio" default="0" label="KRAKEN_META_GEOTAG_LABEL" description="KRAKEN_META_GEOTAG_DESC" class="btn-group btn-group-yesno">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                <field name="metaorientation" type="radio" default="0" label="KRAKEN_META_ORIENTATION_LABEL" description="KRAKEN_META_ORIENTATION_DESC" class="btn-group btn-group-yesno">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                <field type="spacer" name="myspacer" label="KRAKEN_MANIPULATION_SETTINGS" />
+                <field name="autoorientation" type="radio" default="0" label="KRAKEN_AUTO_ORIENTATION_LABEL" description="KRAKEN_AUTO_ORIENTATION_DESC" class="btn-group btn-group-yesno">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
             </fieldset>
         </fields>
     </config>

@@ -1,9 +1,14 @@
 <?php
+/**
+ * @package plg_kraken for Joomla!
+ * @version 1.0.0
+ * @author Christoph Schafflinger
+ * @copyright (C) 2017 Christoph Schafflinger
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+**/
+
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
-
-// jimport( 'joomla.plugin.plugin');
-// jimport( 'joomla.html.parameter' );
 
 class plgSystemKraken extends JPlugin
 {
@@ -15,47 +20,64 @@ class plgSystemKraken extends JPlugin
 
 	function onContentBeforeSave($context,$article,$isNew)
 	{
-        //$app = JFactory::getApplication();
-		// skip if not media manager
-		if($context != "com_media.file")
+		// skip if not media manager or no image
+		if($context != "com_media.file" || !exif_imagetype($article->tmp_name))
 		{
 			return;
 		}
 
 		require_once(__DIR__."/lib/Kraken.php");
+		$params = $this->params;
 
 		if(!isset($kraken)){
-			$kraken = new Kraken($this->params->get( 'apikey', '' ), $this->params->get( 'apisecret', '' ));
+			$kraken = new Kraken($params->get( 'apikey', '' ), $params->get( 'apisecret', '' ));
 		}
 
 		$kparams = array(
 		    "file" => $article->tmp_name,
-		    "wait" => true,
-		    "lossy" => true
+		    "wait" => true
 		);
+
+		if(!$params->get('krakendefaults', 1)){
+			// "Use Kraken Defaults" set to no
+			if(!$params->get('optimization', 1)){
+				// Lossy Optimization Settings
+				$kparams["lossy"] = true;
+				$kparams["quality"] = (int)$params->get('qual', 70);
+				$kparams["sampling_scheme"] = $params->get('chroma', '4:2:2');
+			}else{
+				// Lossless Optimization
+				$kparams["lossy"] = false;
+			}
+
+			//Meta Settings
+			if($params->get('metapreserve', 0)){
+				// Preserve some or all Meta Data
+				($params->get('metaprofile', 0) ? $kparams["preserve_meta"][] = "profile");
+				($params->get('metadate', 0) ? $kparams["preserve_meta"][] = "date");
+				($params->get('metacopyright', 0) ? $kparams["preserve_meta"][] = "copyright");
+				($params->get('metageotag', 0) ? $kparams["preserve_meta"][] = "geotag");
+				($params->get('metaorientation', 0) ? $kparams["preserve_meta"][] = "orientation");
+			}
+		}else{
+			$kparams["lossy"] = true;
+		}
+
+		// Image Orientation
+		$kparams["auto_orient"] = ($params->get('autoorientation', 0) ? true : false );
 
 		$data = $kraken->upload($kparams);
 
-		$log = "TMP: " . $article->tmp_name . "\n FILE: " . $article->filepath ."\n\n";
-
 		if ($data["success"]) {
-		    $log .= "Success. Optimized image URL: " . $data["kraked_url"];
 		    if($this->grab_image($data["kraked_url"], $article->tmp_name) !== false){
-		    	$log .= "\n\nSuccessfully saved to: " . $article->tmp_name ."\n";
-		    	$log .= "Saved Bytes " . $data["saved_bytes"];
-		    	JFactory::getApplication()->enqueueMessage("Kraken successfully saved " . $this->formatSizeUnits($data["saved_bytes"]) . " on " . substr($article->filepath, strlen(COM_MEDIA_BASE)) . " @Quali ".$this->params->get( 'qual', '70' ), "notice");
+		    	JFactory::getApplication()->enqueueMessage("Kraken successfully saved " . $this->formatSizeUnits($data["saved_bytes"]) . " on " . substr($article->filepath, strlen(COM_MEDIA_BASE)), "notice");
 		    }else{
-		    	$log .= "\n\nSaving from Kraken failed.";
 		    	JFactory::getApplication()->enqueueMessage("Fetching File from Kraken failed.", "error");
 		    }
 
 		} else {
-		    $log .= "Fail. Error message: " . $data["message"];
 		    JFactory::getApplication()->enqueueMessage("Kraken failed: " . $data["message"], "error");
 		}
-
-
-		file_put_contents(__DIR__."/test.txt", $log);
 
 		return true;
 	}
@@ -65,11 +87,9 @@ class plgSystemKraken extends JPlugin
 	    curl_setopt($ch, CURLOPT_HEADER, 0);
 	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	    curl_setopt($ch, CURLOPT_BINARYTRANSFER,1);
-	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-	    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-		// curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-		// curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-		// curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/lib/krakenio.crt");
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+		curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/lib/krakenio.crt");
 	    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
 	    $raw=curl_exec($ch);
 	    curl_close ($ch);
