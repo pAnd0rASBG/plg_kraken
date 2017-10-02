@@ -1,11 +1,19 @@
 <?php
+/**
+ * @package plg_kraken for Joomla!
+ * @version 1.0.0
+ * @author Christoph Schafflinger
+ * @copyright (C) 2017 Christoph Schafflinger
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+**/
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.form.formfield');
 
 class JFormFieldBSRange extends JFormField {
-	
+
 	protected $type = 'BSRange';
 
 	// getLabel() left out
