@@ -7,7 +7,7 @@
     <authorUrl>www.meinweb.cc</authorUrl>
     <copyright>Copyright (C) 2017 Christoph Schafflinger. All rights reserved.</copyright>
     <license>GNU/GPLv3 http://www.gnu.org/copyleft/gpl.html</license>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <description>KRAKEN_DESCRIPTION</description>
     <files>
             <filename plugin="kraken">kraken.php</filename>
@@ -46,7 +46,7 @@
                 />
             </fieldset>
             <fieldset name="advanced" addfieldpath="/plugins/system/kraken/models/fields">
-                <field type="spacer" name="myspacer" label="KRAKEN_QUALITY_SETTINGS" />
+                <field type="spacer" name="optimization" label="KRAKEN_QUALITY_SETTINGS" />
                 <field name="krakendefaults" type="radio" default="1" label="KRAKEN_DEFAULT_SETTINGS_LABEL" description="KRAKEN_DEFAULT_SETTINGS_DESC" class="btn-group btn-group-yesno">
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
@@ -68,32 +68,32 @@
                     <option value="4:2:2">4:2:2</option>
                     <option value="4:4:4">4:4:4</option>
                 </field>
-                <field type="spacer" name="myspacer" label="KRAKEN_META_SETTINGS" />
-                <field name="metapreserve" type="radio" default="1" label="KRAKEN_META_PRESERVE_LABEL" description="KRAKEN_META_PRESERVE_DESC" class="btn-group btn-group-yesno">
+                <field type="spacer" name="metadata" label="KRAKEN_META_SETTINGS" />
+                <field name="metapreserve" type="radio" default="0" label="KRAKEN_META_PRESERVE_LABEL" description="KRAKEN_META_PRESERVE_DESC" class="btn-group btn-group-yesno">
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
                 </field>
-                <field name="metaprofile" type="radio" default="0" label="KRAKEN_META_PROFILE_LABEL" description="KRAKEN_META_PROFILE_DESC" class="btn-group btn-group-yesno">
+                <field name="metaprofile" type="radio" default="0" label="KRAKEN_META_PROFILE_LABEL" description="KRAKEN_META_PROFILE_DESC" class="btn-group btn-group-yesno" showon="metapreserve:1">
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
                 </field>
-                <field name="metadate" type="radio" default="0" label="KRAKEN_META_DATE_LABEL" description="KRAKEN_META_DATE_DESC" class="btn-group btn-group-yesno">
+                <field name="metadate" type="radio" default="0" label="KRAKEN_META_DATE_LABEL" description="KRAKEN_META_DATE_DESC" class="btn-group btn-group-yesno" showon="metapreserve:1">
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
                 </field>
-                <field name="metacopyright" type="radio" default="0" label="KRAKEN_META_COPYRIGHT_LABEL" description="KRAKEN_META_COPYRIGHT_DESC" class="btn-group btn-group-yesno">
+                <field name="metacopyright" type="radio" default="0" label="KRAKEN_META_COPYRIGHT_LABEL" description="KRAKEN_META_COPYRIGHT_DESC" class="btn-group btn-group-yesno" showon="metapreserve:1">
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
                 </field>
-                <field name="metageotag" type="radio" default="0" label="KRAKEN_META_GEOTAG_LABEL" description="KRAKEN_META_GEOTAG_DESC" class="btn-group btn-group-yesno">
+                <field name="metageotag" type="radio" default="0" label="KRAKEN_META_GEOTAG_LABEL" description="KRAKEN_META_GEOTAG_DESC" class="btn-group btn-group-yesno" showon="metapreserve:1">
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
                 </field>
-                <field name="metaorientation" type="radio" default="0" label="KRAKEN_META_ORIENTATION_LABEL" description="KRAKEN_META_ORIENTATION_DESC" class="btn-group btn-group-yesno">
+                <field name="metaorientation" type="radio" default="0" label="KRAKEN_META_ORIENTATION_LABEL" description="KRAKEN_META_ORIENTATION_DESC" class="btn-group btn-group-yesno" showon="metapreserve:1">
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
                 </field>
-                <field type="spacer" name="myspacer" label="KRAKEN_MANIPULATION_SETTINGS" />
+                <field type="spacer" name="manipulation" label="KRAKEN_MANIPULATION_SETTINGS" />
                 <field name="autoorientation" type="radio" default="0" label="KRAKEN_AUTO_ORIENTATION_LABEL" description="KRAKEN_AUTO_ORIENTATION_DESC" class="btn-group btn-group-yesno">
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
