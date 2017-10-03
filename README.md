@@ -23,7 +23,7 @@ If you don't have any yet, [sign up here](https://kraken.io/signup/?ref=1689ba61
 When everything works fine, you will get an additional message about how much filesize was saved for every uploaded image.
 
 ### Advanced configuration
-...coming soon...
+Advanced Configuration lets you either use the default settings or customize Quality, kept Metadata and image auto rotation. Descriptions for each Setting are in the tooltips on the Field Labels.
 
 
 If you like the plugin, please feel free to donate to the Author, highly appreciated :)
