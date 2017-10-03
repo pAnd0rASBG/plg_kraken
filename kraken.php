@@ -20,17 +20,16 @@ class plgSystemKraken extends JPlugin
 
 	function onContentBeforeSave($context,$article,$isNew)
 	{
-		// skip if not media manager or no image
-		if($context != "com_media.file" || !exif_imagetype($article->tmp_name))
+		// skip if not media manager
+		if($context != "com_media.file")
 		{
 			return;
 		}
 
 		require_once(__DIR__."/lib/Kraken.php");
-		$params = $this->params;
 
 		if(!isset($kraken)){
-			$kraken = new Kraken($params->get( 'apikey', '' ), $params->get( 'apisecret', '' ));
+			$kraken = new Kraken($this->params->get( 'apikey', '' ), $this->params->get( 'apisecret', '' ));
 		}
 
 		$kparams = array(
@@ -38,27 +37,27 @@ class plgSystemKraken extends JPlugin
 		    "wait" => true
 		);
 
-		if(!$params->get('krakendefaults', 1)){
+		if(!$this->params->get('krakendefaults', 1)){
 			// "Use Kraken Defaults" set to no
-			if(!$params->get('optimization', 1)){
+			if($this->params->get('optimization', 1)){
 				// Lossy Optimization Settings
 				$kparams["lossy"] = true;
-				$kparams["quality"] = (int)$params->get('qual', 70);
-				$kparams["sampling_scheme"] = $params->get('chroma', '4:2:2');
+				$kparams["quality"] = (int)$this->params->get('qual', 70);
+				$kparams["sampling_scheme"] = $this->params->get('chroma', '4:2:2');
 			}else{
 				// Lossless Optimization
 				$kparams["lossy"] = false;
 			}
 
 			//Meta Settings
-			if($params->get('metapreserve', 0)){
+			if($this->params->get('metapreserve', 0)){
 				// Preserve some or all Meta Data
 				$meta = array();
-				$meta[] = ($params->get('metaprofile', 0) ? "profile" : "");
-				$meta[] = ($params->get('metadate', 0) ? "date" : "");
-				$meta[] = ($params->get('metacopyright', 0) ? "copyright" : "");
-				$meta[] = ($params->get('metageotag', 0) ? "geotag" : "");
-				$meta[] = ($params->get('metaorientation', 0) ? "orientation" : "");
+				$meta[] = ($this->params->get('metaprofile', 0) ? "profile" : "");
+				$meta[] = ($this->params->get('metadate', 0) ? "date" : "");
+				$meta[] = ($this->params->get('metacopyright', 0) ? "copyright" : "");
+				$meta[] = ($this->params->get('metageotag', 0) ? "geotag" : "");
+				$meta[] = ($this->params->get('metaorientation', 0) ? "orientation" : "");
 				// add cleaned up array
 				$kparams["preserve_meta"] = array_values(array_filter($meta, function($value) { return $value !== ''; }));
 			}
@@ -67,13 +66,15 @@ class plgSystemKraken extends JPlugin
 		}
 
 		// Image Orientation
-		$kparams["auto_orient"] = ($params->get('autoorientation', 0) ? true : false );
+		$kparams["auto_orient"] = ($this->params->get('autoorientation', 0) ? true : false );
 
 		$data = $kraken->upload($kparams);
 
 		if ($data["success"]) {
 		    if($this->grab_image($data["kraked_url"], $article->tmp_name) !== false){
 		    	JFactory::getApplication()->enqueueMessage("Kraken successfully saved " . $this->formatSizeUnits($data["saved_bytes"]) . " on " . substr($article->filepath, strlen(COM_MEDIA_BASE)), "notice");
+		    	// Update article Object with optimized Filesize
+		    	$article->set('size',$data["kraked_size"]);
 		    }else{
 		    	JFactory::getApplication()->enqueueMessage("Fetching File from Kraken failed.", "error");
 		    }
@@ -90,9 +91,11 @@ class plgSystemKraken extends JPlugin
 	    curl_setopt($ch, CURLOPT_HEADER, 0);
 	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	    curl_setopt($ch, CURLOPT_BINARYTRANSFER,1);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-		curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/lib/krakenio.crt");
+	    //curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+	    //curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+	    //curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/lib/krakenio.crt");
+	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 	    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
 	    $raw=curl_exec($ch);
 	    curl_close ($ch);
