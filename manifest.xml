@@ -5,10 +5,10 @@
 		<description><![CDATA[Kraken Image Optimizer Plugin]]></description>
 		<element>kraken</element>
 		<type>plugin</type>
-		<version>1.0.8</version>
-		<infourl title="Kraken 1.0.8">https://github.com/pAnd0rASBG/plg_kraken/releases</infourl>
+		<version>1.0.9</version>
+		<infourl title="Kraken 1.0.9">https://github.com/pAnd0rASBG/plg_kraken/releases</infourl>
 		<downloads>
-			<downloadurl type="update" format="zip">https://github.com/pAnd0rASBG/plg_kraken/archive/1.0.8.zip</downloadurl>
+			<downloadurl type="update" format="zip">https://github.com/pAnd0rASBG/plg_kraken/archive/1.0.9.zip</downloadurl>
 		</downloads>
 		<tags>
 			<tag>stable</tag>
