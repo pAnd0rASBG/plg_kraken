@@ -12,10 +12,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 class plgSystemKraken extends JPlugin
 {
-	function plgSystemKraken(&$subject, $config)
+	public function __construct(&$subject, $config)
 	{
 		parent::__construct($subject, $config);
-		$this->_plugin = JPluginHelper::getPlugin( 'system', 'Kraken' );
 	}
 
 	function onContentBeforeSave($context,$article,$isNew)
