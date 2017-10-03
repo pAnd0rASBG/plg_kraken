@@ -46,7 +46,7 @@
                 />
             </fieldset>
             <fieldset name="advanced" addfieldpath="/plugins/system/kraken/models/fields">
-                <field type="spacer" name="optimization" label="KRAKEN_QUALITY_SETTINGS" />
+                <field type="spacer" name="qualitysettings" label="KRAKEN_QUALITY_SETTINGS" />
                 <field name="krakendefaults" type="radio" default="1" label="KRAKEN_DEFAULT_SETTINGS_LABEL" description="KRAKEN_DEFAULT_SETTINGS_DESC" class="btn-group btn-group-yesno">
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
