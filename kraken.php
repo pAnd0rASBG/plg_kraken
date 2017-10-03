@@ -91,15 +91,13 @@ class plgSystemKraken extends JPlugin
 	    curl_setopt($ch, CURLOPT_HEADER, 0);
 	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	    curl_setopt($ch, CURLOPT_BINARYTRANSFER,1);
-	    //curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-	    //curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-	    //curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/lib/krakenio.crt");
-	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-	    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+	    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+	    curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/lib/dlkrakenio.crt");
 	    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
 	    $raw=curl_exec($ch);
 	    curl_close ($ch);
-	    return file_put_contents($saveto, $raw);
+	    return ($raw === false ? false : file_put_contents($saveto, $raw));
 	}
 
 	private function formatSizeUnits($bytes){
