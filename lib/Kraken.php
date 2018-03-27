@@ -1,4 +1,14 @@
 <?php
+/**
+ * @package plg_kraken for Joomla!
+ * @version 1.1.0
+ * @author Nekkra UG
+ * @copyright Copyright (c) 2013 - 2015 Nekkra UG
+ * @license MIT https://opensource.org/licenses/MIT
+**/
+
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 class Kraken {
     protected $auth = array();
