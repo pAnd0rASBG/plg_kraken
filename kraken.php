@@ -1,7 +1,7 @@
 <?php
 /**
  * @package plg_kraken for Joomla!
- * @version 1.0.9
+ * @version 1.1.0
  * @author Christoph Schafflinger
  * @copyright (C) 2017 Christoph Schafflinger
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
