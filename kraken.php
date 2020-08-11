@@ -1,7 +1,7 @@
 <?php
 /**
  * @package plg_kraken for Joomla!
- * @version 1.1.0
+ * @version 1.1.1
  * @author Christoph Schafflinger
  * @copyright (C) 2017 Christoph Schafflinger
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -92,7 +92,7 @@ class plgSystemKraken extends JPlugin
 	    curl_setopt($ch, CURLOPT_BINARYTRANSFER,1);
 	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
 	    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-	    curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/lib/dlkrakenio.crt");
+	    curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/lib/cacert.pem");
 	    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
 	    $raw=curl_exec($ch);
 	    curl_close ($ch);
