@@ -188,7 +188,7 @@ final class Kraken extends MediaActionPlugin
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 		curl_setopt($curl, CURLOPT_FAILONERROR, 0);
-		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 1);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $this->params->get('verifypeer', 1));
 		curl_setopt($curl, CURLOPT_TIMEOUT, 30);
 
 		$response = json_decode(curl_exec($curl));
