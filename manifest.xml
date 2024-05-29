@@ -1,23 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
 <updates>
 	<update>
-		<name><![CDATA[Kraken Image Optimizer Plugin]]></name>
-		<description><![CDATA[Kraken Image Optimizer Plugin]]></description>
+		<name>Kraken Image Optimizer</name>
+		<description>The Kraken image optimizer plugin for Joomla 4+</description>
 		<element>kraken</element>
 		<type>plugin</type>
-		<version>1.1.1</version>
-		<infourl title="Kraken 1.1.1">https://github.com/pAnd0rASBG/plg_kraken/releases</infourl>
+		<version>2.0.0</version>
+		<infourl title="Kraken 2.0.0">https://github.com/pAnd0rASBG/plg_kraken/releases</infourl>
 		<downloads>
-			<downloadurl type="update" format="zip">https://github.com/pAnd0rASBG/plg_kraken/archive/1.1.1.zip</downloadurl>
+			<downloadurl type="update" format="zip">https://github.com/pAnd0rASBG/plg_kraken/archive/2.0.0.zip</downloadurl>
 		</downloads>
 		<tags>
 			<tag>stable</tag>
 		</tags>
-		<maintainer><![CDATA[Christoph Schafflinger]]></maintainer>
+		<maintainer>Christoph Schafflinger</maintainer>
 		<maintainerurl>https://www.meinweb.cc/</maintainerurl>
-		<section>Updates</section>
-		<targetplatform name="joomla" version="3.[0123456789]"/>
-		<client>0</client>
-		<folder>system</folder>
+		<targetplatform name="joomla" version="[45].*"/>
+		<client>site</client>
+		<folder>media-action</folder>
 	</update>
 </updates>
