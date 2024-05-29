@@ -18,12 +18,14 @@ This plugin makes it really easy for you to use Kraken in Joomla, do something r
 ## Installation and Usage
 
 ### Installation
-The plugin comes as Joomla installation package, get the latest version [here](#) and install using the Joomla installer (Extensions > manage > install). After the installation has finished, go to the configuration (Extensions > plugins, then search for "kraken"), enable the Plugin and enter your kraken.io API credentials. 
+The plugin comes as Joomla installation package, get the latest version [here](https://github.com/pAnd0rASBG/plg_kraken/releases) and install using the Joomla installer (Extensions > manage > install). After the installation has finished, go to the configuration (System > plugins, then search for "kraken"), enable the Plugin and enter your kraken.io API credentials. 
 If you don't have any yet, [sign up here](https://kraken.io/signup/?ref=1689ba61070f). There is also a free account.Once signed up, visit the [API Dashboard](https://kraken.io/account/api-credentials/?ref=1689ba61070f) to find or generate your API Key and Secret.
 When everything works fine, you will get an additional message about how much filesize was saved for every uploaded image.
 
 ### Advanced configuration
-Advanced Configuration lets you either use the default settings or customize Quality, kept Metadata and image auto rotation. Descriptions for each Setting are in the tooltips on the Field Labels.
+Advanced Configuration lets you either use the default settings or customize Quality, kept Metadata and image autorotation. 
+Furthermore, you can switch on/off the automatic conversion to WebP and automatic lowercase filenames (**_both are on by default as best practice_**) and switch off SSL peer verification (**NOT RECOMMENDED!**). The latter usually happens on Windows if PHP is not configured with _curl.cainfo_.   
+Descriptions for each Setting are in the tooltips on the Field Labels.
 
 
 If you like the plugin, please feel free to donate to the Author, highly appreciated :)
