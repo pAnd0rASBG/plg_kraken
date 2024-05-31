@@ -4,10 +4,10 @@
 		<description>The Kraken image optimizer plugin for Joomla 4+</description>
 		<element>kraken</element>
 		<type>plugin</type>
-		<version>2.0.1</version>
-		<infourl title="Kraken 2.0.1">https://github.com/pAnd0rASBG/plg_kraken/releases</infourl>
+		<version>2.0.2</version>
+		<infourl title="Kraken 2.0.2">https://github.com/pAnd0rASBG/plg_kraken/releases</infourl>
 		<downloads>
-			<downloadurl type="update" format="zip">https://github.com/pAnd0rASBG/plg_kraken/archive/2.0.1.zip</downloadurl>
+			<downloadurl type="update" format="zip">https://github.com/pAnd0rASBG/plg_kraken/archive/2.0.2.zip</downloadurl>
 		</downloads>
 		<tags>
 			<tag>stable</tag>
