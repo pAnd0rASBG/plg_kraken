@@ -64,10 +64,6 @@ final class Kraken extends MediaActionPlugin
 		    return;
 	    }
 
-		if (!class_exists('CURLStringFile' )) {
-			$this->app->enqueueMessage('Kraken failed, CURL is not supported on your System', 'error');
-		}
-
 		// set up authentication object from plugin params
 	    $this->auth = array(
 		    "auth" => array(
@@ -169,7 +165,16 @@ final class Kraken extends MediaActionPlugin
 			return $response;
 		}
 
-		$file = new \CURLStringFile($kParams['file'], $kParams['name'], $kParams['mime']);
+        if (!class_exists('CURLStringFile' )) {
+            // pre PHP 8.1
+            $tmpfile = tempnam(sys_get_temp_dir(), 'POST');
+            file_put_contents($tmpfile, $kParams['file']);
+            $file = '@' . $tmpfile;
+        } else {
+            // PHP >= 8.1
+            $file = new \CURLStringFile($kParams['file'], $kParams['name'], $kParams['mime']);
+        }
+
 		unset($kParams['file']);
 		unset($kParams['name']);
 		unset($kParams['mime']);
@@ -192,6 +197,11 @@ final class Kraken extends MediaActionPlugin
 		curl_setopt($curl, CURLOPT_TIMEOUT, 30);
 
 		$response = json_decode(curl_exec($curl));
+
+        if (!class_exists('CURLStringFile' )) {
+            // pre PHP 8.1 - remove temp file
+            unlink($tmpfile);
+        }
 
 		if ($response === null) {
 			$response = new \StdClass();
