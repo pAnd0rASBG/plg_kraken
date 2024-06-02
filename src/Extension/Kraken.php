@@ -167,9 +167,9 @@ final class Kraken extends MediaActionPlugin
 
         if (!class_exists('CURLStringFile' )) {
             // pre PHP 8.1
-            $tmpfile = tempnam(sys_get_temp_dir(), 'POST');
+            $tmpfile = JPATH_ROOT . '/tmp/' . $kParams['name'];
             file_put_contents($tmpfile, $kParams['file']);
-            $file = '@' . $tmpfile;
+            $file = new \CURLFile($tmpfile);
         } else {
             // PHP >= 8.1
             $file = new \CURLStringFile($kParams['file'], $kParams['name'], $kParams['mime']);
