@@ -109,8 +109,13 @@ final class Kraken extends MediaActionPlugin
 	    // Image Orientation
 	    $kParams["auto_orient"] = (bool) $this->params->get('autoorientation', 0);
 
-		// convert to WebP
-	    $kParams["webp"] = (bool) $this->params->get('webp', 0);;
+	    // skip WebP conversion if animated gif (unsupported by Kraken at this point)
+	    $kParams["webp"] = false;
+	    if($this->params->get('webp', 0)){
+		    if(!$this->checkAnimation($item->data)){
+			    $kParams["webp"] = true;
+		    }
+	    }
 
 	    $type = IMAGETYPE_JPEG;
 
@@ -254,5 +259,20 @@ final class Kraken extends MediaActionPlugin
 		}
 
 		return $bytes;
+	}
+
+	/**
+	 * Checks if the given image contains an animation by looking for a specific pattern.
+	 *
+	 * @param   string  $img  The image to check.
+	 *
+	 * @return bool Returns true if the image contains an animation, false otherwise.
+	 * @since 2.0.4
+	 */
+	private function checkAnimation(string $img): bool
+	{
+		$count = preg_match_all('#\x00\x21\xF9\x04.{4}\x00(\x2C|\x21)#s', $img);
+
+		return $count > 1;
 	}
 }
